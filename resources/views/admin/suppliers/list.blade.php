@@ -40,7 +40,6 @@
                                   </td>
                                   <td>
                                         {!!Form::open(array('url' => URL::route('admin.suppliers.destroy', $supplier->id), 'method' => 'delete', 'class' => 'btn-group'))!!}
-                                            <a href="{{URL::route('admin.suppliers.show', $supplier->id)}}" class="btn btn-default"><i class="fa fa-eye"></i> Show details</a>
                                             <a href="{{URL::route('admin.suppliers.edit', $supplier->id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                                             <button type="submit" name="submit" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete?')"> <i class="fa fa-times"></i> Delete</button>
                                         {!!Form::close()!!}

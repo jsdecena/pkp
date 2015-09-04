@@ -54,28 +54,23 @@ class SuppliersController extends Controller
         $supplier->description  = $request->input('description');
         $supplier->website      = $request->input('website');
         $supplier->contact      = $request->input('contact');
-        $supplier->cover        = null;
+        if ($request->hasFile('file')) {
+            //COVER PHOTO
+            $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move("uploads", "$fileName");
+
+            $supplier->cover    = $fileName;
+        }
         $supplier->telephone    = $request->input('telephone');
         $supplier->address      = $request->input('address');
         $supplier->latitude     = $request->input('latitude');
         $supplier->longitude    = $request->input('longitude');
-        $supplier->status       = 0;
+        $supplier->status       = $request->input('status');
         $supplier->created_at   = date('m-d-y H:i:s');
         $supplier->updated_at   = date('m-d-y H:i:s');
         $supplier->save();
 
         return redirect()->route('admin.suppliers.index')->with('success', 'Successfully created!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        die('---');
     }
 
     /**
@@ -113,7 +108,13 @@ class SuppliersController extends Controller
         $supplier->description  = $request->input('description');
         $supplier->website      = $request->input('website');
         $supplier->contact      = $request->input('contact');
-        $supplier->cover        = null;
+        if ($request->hasFile('file')) {
+            //COVER PHOTO
+            $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move("uploads", "$fileName");
+
+            $supplier->cover    = $fileName;
+        }
         $supplier->telephone    = $request->input('telephone');
         $supplier->address      = $request->input('address');
         $supplier->latitude     = $request->input('latitude');
@@ -122,7 +123,7 @@ class SuppliersController extends Controller
         $supplier->updated_at   = date('m-d-y H:i:s');
         $supplier->save();
 
-        return redirect()->route('admin.suppliers.index')->with('success', 'Successfully created!');
+        return redirect()->route('admin.suppliers.edit', $id)->with('success', 'Successfully updated!');
     }
 
     /**

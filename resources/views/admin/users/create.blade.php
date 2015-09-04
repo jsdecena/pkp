@@ -24,8 +24,12 @@
               </div><!-- /.box-header -->
 
                 <!-- form start -->
-                {!!Form::open(array('url'=> URL::route('admin.users.store')))!!}
+                {!!Form::open(array('url'=> URL::route('admin.users.store'), 'files' => true))!!}
                     <div class="box-body">
+                        <div class="form-group">
+                            <label for="cover">Cover Photo</label>
+                            <input type="file" class="form-control" id="cover" name="file" />
+                        </div>                        
                       <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{Input::old('name')}}" placeholder="Your name" />

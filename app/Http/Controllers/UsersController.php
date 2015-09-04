@@ -50,6 +50,13 @@ class UsersController extends Controller
         $user->name     = $request->input('name');
         $user->email    = $request->input('email');
         $user->password = Hash::make($request->input('password'));
+        if ($request->hasFile('file')) {
+            //COVER PHOTO
+            $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move("uploads", "$fileName");
+
+            $user->cover    = $fileName;
+        }        
         $user->save();
 
         return redirect()->route('admin.users.index')->with('success', 'Successfully created!');
@@ -97,11 +104,14 @@ class UsersController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
         
-        //COVER PHOTO
-        $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
-        $request->file('file')->move("uploads", "$fileName");
+        if ($request->hasFile('file')) {
+            //COVER PHOTO
+            $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move("uploads", "$fileName");
 
-        $user->cover    = $fileName;
+            $user->cover    = $fileName;
+        }
+
         $user->save();
 
         //check if editing your own profile

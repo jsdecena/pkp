@@ -24,7 +24,7 @@
               </div><!-- /.box-header -->
 
                 <!-- form start -->
-                {!!Form::open(array('url'=> URL::route('admin.suppliers.store')))!!}
+                {!!Form::open(array('url'=> URL::route('admin.suppliers.store'), 'files' => true) )!!}
                     <div class="box-body">
                         <div class="form-group">
                             <label for="category">Category</label>
@@ -65,7 +65,7 @@
                             <label for="telephone">Telephone</label>
                             <div class="input-group">
                                 <span class="input-group-addon">+63</span>
-                                <input type="text" class="form-control" id="telephone" name="telephone" value="{{Input::old('telephone')}}" placeholder="Supplier's alternate number" />
+                                <input type="text" class="form-control" id="telephone" name="telephone" value="{{Input::old('telephone')}}" placeholder="Supplier's alternate number" maxlength="10" />
                             </div>                            
                         </div>
                         <div class="form-group">
@@ -82,7 +82,7 @@
                         </div>                        
                         <div class="form-group">
                             <label for="cover">Cover Image</label>
-                            <input type="file" class="form-control" id="cover" name="cover" />
+                            <input type="file" class="form-control" id="cover" name="file" />
                         </div>
                         <div class="form-group">
                             <label class="radio-inline">
