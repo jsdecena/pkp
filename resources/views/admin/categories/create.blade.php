@@ -26,6 +26,16 @@
                 <!-- form start -->
                 {!!Form::open(array('url'=> URL::route('admin.categories.store')))!!}
                     <div class="box-body">
+                        @if(!$data->isEmpty())
+                        <div class="form-group">
+                            <label for="category">Choose parent category</label>
+                            <select name="category" id="category" class="form-control">
+                                @foreach($data as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
                         <div class="form-group">
                             <label for="name">Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="name" name="name" value="{{Input::old('name')}}" placeholder="Category Name" />

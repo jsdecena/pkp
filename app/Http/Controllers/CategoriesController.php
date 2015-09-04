@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.list', array('data' => Categories::paginate(10)));
+        return view('admin.categories.list', array('data' => Categories::paginate(10)) );
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.categories.create', array('data' => Categories::paginate(10)->except(1)));
     }
 
     /**

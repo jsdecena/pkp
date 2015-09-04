@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->delete();
 
-        App\User::create(['name' => 'John Doe', 'email' => 'foo@bar.com', 'password' => Hash::make('Testing123')]);
+        App\Models\User::create(['name' => 'John Doe', 'email' => 'foo@bar.com', 'password' => Hash::make('Testing123')]);
 
         $this->command->info('User table seeded!');
     }
