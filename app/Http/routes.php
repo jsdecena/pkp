@@ -17,7 +17,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 
     //RESOURCE CONTROLLERS
-    Route::resource('users', 'UsersController');
+    Route::resource('users',        'UsersController');
+    Route::resource('categories',   'CategoriesController');
 });
 
 Route::controllers([

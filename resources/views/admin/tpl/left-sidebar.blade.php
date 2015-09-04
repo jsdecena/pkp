@@ -32,24 +32,31 @@
             <li><a href="{{URL::route('admin.users.index')}}"><i class="fa fa-circle-o"></i> List users</a></li>
             <li><a href="{{URL::route('admin.users.create')}}"><i class="fa fa-user"></i> Create a user</a></li>
         </ul>
+    </li>
+    <li class="treeview @if(Request::segment(2) == "categories") active @endif">
+        <a href="{{URL::route('admin.users.index')}}"><i class="fa fa-tags"></i> <span>Categories</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+            <li><a href="{{URL::route('admin.categories.index')}}"><i class="fa fa-circle-o text-red"></i> List categories</a></li>
+            <li><a href="{{URL::route('admin.categories.create')}}"><i class="fa fa-tag"></i> Create a category</a></li>
+        </ul>
     </li>    
-    <li>
+    <li class="hidden">
       <a href="#">
         <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">Hot</small>
       </a>
     </li>
-    <li>
+    <li class="hidden">
       <a href="../mailbox/mailbox.html">
         <i class="fa fa-envelope"></i> <span>Mailbox</span>
         <small class="label pull-right bg-yellow">12</small>
       </a>
     </li>
-    <li class="treeview">
+    <li class="treeview hidden">
       <a href="#">
         <i class="fa fa-share"></i> <span>Multilevel</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
-      <ul class="treeview-menu">
+      <ul class="treeview-menu hidden">
         <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
         <li>
           <a href="#"><i class="fa fa-circle-o"></i> Level One <i class="fa fa-angle-left pull-right"></i></a>
@@ -67,10 +74,10 @@
         <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
       </ul>
     </li>
-    <li class="header">LABELS</li>
-    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+    <li class="header hidden">LABELS</li>
+    <li class="hidden"><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+    <li class="hidden"><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+    <li class="hidden"><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
   </ul>
 </section>
 <!-- /.sidebar -->

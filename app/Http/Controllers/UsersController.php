@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Input;
-use Redirect;
 use Auth;
 use Hash;
 
@@ -21,7 +19,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.list', array('users' => User::paginate(10) ));
+        return view('admin.users.list', array('data' => User::paginate(10) ));
     }
 
     /**
@@ -48,12 +46,12 @@ class UsersController extends Controller
         ]);
 
         $user           = new User;
-        $user->name     = Input::get('name');
-        $user->email    = Input::get('email');
-        $user->password = Hash::make(Input::get('password'));
+        $user->name     = $request->input('name');
+        $user->email    = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
         $user->save();
 
-        return Redirect::route('admin.users.index')->with('success', 'Successfully created!');
+        return redirect()->route('admin.users.index')->with('success', 'Successfully created!');
     }
 
     /**
@@ -92,21 +90,22 @@ class UsersController extends Controller
         ]);
 
         $user = User::find($id);
-        $user->name = Input::get('name');
-        $user->email = Input::get('email');
-        if (Input::has('password')) {
-            $user->password = Hash::make(Input::get('password'));
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->input('password'));
         }
         $user->save();
 
         //check if editing your own profile
         if (Auth::id() == $id) {
-            
-            Auth::logout();
-            return Redirect::to('auth/login')->with('success', 'You have been logged out to the application.');
+            if ($request->has('password')) {
+                Auth::logout();
+                return redirect('auth/login')->with('success', 'You have been logged out to the application.');
+            }
         }        
 
-        return Redirect::route('admin.users.edit', $id)->with('success', 'Successfully updated');
+        return redirect()->route('admin.users.edit', $id)->with('success', 'Successfully updated');
     }
 
     /**
@@ -124,9 +123,9 @@ class UsersController extends Controller
         if (Auth::id() == $id) {
             
             Auth::logout();
-            return Redirect::to('auth/login')->with('success', 'You have been logged out to the application.');
+            return redirect('auth/login')->with('success', 'You have been logged out to the application.');
         }        
 
-        return Redirect::route('admin.users.index')->with('success', 'You have successfully deleted a user.');
+        return redirect()->route('admin.users.index')->with('success', 'You have successfully deleted a user.');
     }
 }
