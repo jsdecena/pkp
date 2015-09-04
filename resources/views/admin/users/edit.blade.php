@@ -27,22 +27,34 @@
                 @include('errors.message')
 
                 <!-- form start -->
-                {!!Form::open(array('url'=> URL::route('admin.users.update', $user->id), 'method' => 'put'))!!}
+                {!!Form::open(array('url'=> URL::route('admin.users.update', $user->id), 'method' => 'put', 'files' => true))!!}
                     <div class="box-body">
-                      <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}" />
-                      </div>                      
-                      <div class="form-group">
-                        <label for="email">Email address <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{$user->email}}" />
-                        <span class="help-inline">if you are changing your own email or password, you will be logged out of the application.</span>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="******" />
-                        <span class="help-inline">leave the password blank if not changing password</span>
-                      </div>
+                        
+                        @if(!is_null($user->cover))
+                            <img src="{{asset("uploads/$user->cover")}}" alt="" width="80" height="80" />
+                        @endif
+                        <div class="form-group">
+                            <label for="cover">Cover Photo</label>
+                            <input type="file" class="form-control" id="cover" name="file" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}" />
+                        </div>
+                          
+                        <div class="form-group">
+                            <label for="email">Email address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{$user->email}}" />
+                            <span class="help-inline">if you are changing your own email or password, you will be logged out of the application.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="******" />
+                            <span class="help-inline">leave the password blank if not changing password</span>
+                        </div>
+
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">

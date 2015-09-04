@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Auth;
 use Hash;
+use Storage;
 
 class UsersController extends Controller
 {
@@ -89,12 +90,18 @@ class UsersController extends Controller
             'email' => 'required|email',
         ]);
 
-        $user = User::find($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        $user           = User::find($id);
+        $user->name     = $request->input('name');
+        $user->email    = $request->input('email');
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
         }
+        
+        //COVER PHOTO
+        $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+        $request->file('file')->move("uploads", "$fileName");
+
+        $user->cover    = $fileName;
         $user->save();
 
         //check if editing your own profile
