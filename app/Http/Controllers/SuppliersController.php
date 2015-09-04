@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Suppliers;
+use App\Models\Categories;
 
 class SuppliersController extends Controller
 {
@@ -16,7 +18,7 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.suppliers.list', array('data' => Suppliers::paginate(10)));
     }
 
     /**
@@ -26,7 +28,7 @@ class SuppliersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.suppliers.create', array('categories' => Categories::all()));
     }
 
     /**
@@ -37,7 +39,32 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required',
+            'email'     => 'required|email|unique:suppliers',
+            'mobile'    => 'required|integer|min:10',
+        ]);
+
+        $supplier               = new Suppliers;
+        $supplier->category_id  = $request->input('category');
+        $supplier->name         = $request->input('name');
+        $supplier->slug         = str_slug($request->input('name'));
+        $supplier->email        = $request->input('email');
+        $supplier->mobile       = $request->input('mobile');
+        $supplier->description  = $request->input('description');
+        $supplier->website      = $request->input('website');
+        $supplier->contact      = $request->input('contact');
+        $supplier->cover        = null;
+        $supplier->telephone    = $request->input('telephone');
+        $supplier->address      = $request->input('address');
+        $supplier->latitude     = $request->input('latitude');
+        $supplier->longitude    = $request->input('longitude');
+        $supplier->status       = 0;
+        $supplier->created_at   = date('m-d-y H:i:s');
+        $supplier->updated_at   = date('m-d-y H:i:s');
+        $supplier->save();
+
+        return redirect()->route('admin.suppliers.index')->with('success', 'Successfully created!');
     }
 
     /**
@@ -48,7 +75,7 @@ class SuppliersController extends Controller
      */
     public function show($id)
     {
-        //
+        die('---');
     }
 
     /**
@@ -59,7 +86,7 @@ class SuppliersController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.suppliers.edit', array('categories' => Categories::all(), 'supplier' => Suppliers::findOrFail($id)));
     }
 
     /**
@@ -71,7 +98,31 @@ class SuppliersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required',
+            'email'     => 'required|email',
+            'mobile'    => 'required|integer|min:10',
+        ]);
+
+        $supplier               = Suppliers::findOrFail($id);
+        $supplier->category_id  = $request->input('category');
+        $supplier->name         = $request->input('name');
+        $supplier->slug         = str_slug($request->input('name'));
+        $supplier->email        = $request->input('email');
+        $supplier->mobile       = $request->input('mobile');
+        $supplier->description  = $request->input('description');
+        $supplier->website      = $request->input('website');
+        $supplier->contact      = $request->input('contact');
+        $supplier->cover        = null;
+        $supplier->telephone    = $request->input('telephone');
+        $supplier->address      = $request->input('address');
+        $supplier->latitude     = $request->input('latitude');
+        $supplier->longitude    = $request->input('longitude');
+        $supplier->status       = $request->input('status');
+        $supplier->updated_at   = date('m-d-y H:i:s');
+        $supplier->save();
+
+        return redirect()->route('admin.suppliers.index')->with('success', 'Successfully created!');
     }
 
     /**
@@ -82,6 +133,9 @@ class SuppliersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = Suppliers::findOrFail($id);
+        $supplier->delete();
+
+        return redirect()->route('admin.suppliers.index')->with('success', 'Successfully deleted!');
     }
 }

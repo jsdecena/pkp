@@ -39,6 +39,13 @@
             <li><a href="{{URL::route('admin.categories.index')}}"><i class="fa fa-circle-o text-red"></i> List categories</a></li>
             <li><a href="{{URL::route('admin.categories.create')}}"><i class="fa fa-tag"></i> Create a category</a></li>
         </ul>
+    </li>
+    <li class="treeview @if(Request::segment(2) == "suppliers") active @endif">
+        <a href="{{URL::route('admin.users.index')}}"><i class="fa fa-bell"></i> <span>Suppliers</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul class="treeview-menu">
+            <li><a href="{{URL::route('admin.suppliers.index')}}"><i class="fa fa-circle-o text-red"></i> List suppliers</a></li>
+            <li><a href="{{URL::route('admin.suppliers.create')}}"><i class="fa fa-tag"></i> Create a supplier</a></li>
+        </ul>
     </li>    
     <li class="hidden">
       <a href="#">
