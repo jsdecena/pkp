@@ -100,8 +100,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{asset('admin/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              @if(is_null($user->cover))
+                  <img src="{{asset('admin/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+              @else
+                  <img src="{{Image::url(asset("uploads/$user->cover"),25,25,array('crop'))}}" alt="User image" class="img-circle">
+              @endif
+              <span class="hidden-xs">{{$user->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
