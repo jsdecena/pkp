@@ -24,7 +24,7 @@
               </div><!-- /.box-header -->
 
                 <!-- form start -->
-                {!!Form::open(array('url'=> URL::route('admin.categories.update', $category->id), 'method' => 'put' ) )!!}
+                {!!Form::open(array('url'=> URL::route('admin.categories.update', $category->id), 'method' => 'put', 'files' => true ) )!!}
                     <div class="box-body">
                         <div class="form-group">
                             <label for="name">Name <span class="text-danger">*</span></label>
@@ -36,9 +36,9 @@
                         </div>
                         @if(!is_null($category->cover))
                             <div class="form-group">
-                                <div><img src="{{$category->cover}}" alt="" /></div>
+                                <div><img src="{{asset("uploads/$category->cover")}}" alt="" width="80" height="80" /></div>
                                 <label for="cover">Cover Image</label>
-                                <input type="file" class="form-control" id="cover" name="cover" />
+                                <input type="file" class="form-control" id="cover" name="file" />
                             </div>
                         @endif
                     </div><!-- /.box-body -->

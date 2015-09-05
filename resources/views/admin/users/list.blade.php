@@ -25,6 +25,7 @@
                           <th style="width: 10px">#</th>
                           <th>Name</th>
                           <th>Email</th>
+                          <th>Image</th>
                           <th>Actions</th>
                         </tr>
                         @foreach($data as $user)
@@ -32,9 +33,16 @@
                               <td>{{$user->id}}</td>
                               <td>{{$user->name}}</td>
                               <td>{{$user->email}}</td>
+                                <td>
+                                    @if(!is_null($user->cover))
+                                        <img src="{{Image::url(asset("uploads/$user->cover"),100,80,array('crop'))}}" alt="" class="img-thumbnail">
+                                    @else
+                                        <img src="http://placehold.it/100x80" class="img-thumbnail" alt="">
+                                    @endif
+                                </td>
                               <td>
                                     {!!Form::open(array('url' => URL::route('admin.users.destroy', $user->id), 'method' => 'delete', 'class' => 'btn-group'))!!}
-                                        <a href="{{URL::route('admin.users.show', $user->id)}}" class="btn btn-default"><i class="fa fa-eye"></i> Show details</a>
+                                        <a href="{{URL::route('admin.users.show', $user->id)}}" class="btn btn-default"><i class="fa fa-eye"></i> Details</a>
                                         <a href="{{URL::route('admin.users.edit', $user->id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                                         <button type="submit" name="submit" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete?')"> <i class="fa fa-times"></i> Delete</button>
                                     {!!Form::close()!!}

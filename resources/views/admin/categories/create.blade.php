@@ -24,7 +24,7 @@
               </div><!-- /.box-header -->
 
                 <!-- form start -->
-                {!!Form::open(array('url'=> URL::route('admin.categories.store')))!!}
+                {!!Form::open(array('url'=> URL::route('admin.categories.store'), 'files' => true))!!}
                     <div class="box-body">
                         @if(!$data->isEmpty())
                         <div class="form-group">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group">
                             <label for="cover">Cover Image</label>
-                            <input type="file" class="form-control" id="cover" name="cover" />
+                            <input type="file" class="form-control" id="cover" name="file" />
                         </div>                                                
                     </div><!-- /.box-body -->
 

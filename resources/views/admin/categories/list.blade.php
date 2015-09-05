@@ -24,19 +24,27 @@
                         <tr>
                           <th style="width: 10px">#</th>
                           <th>Name</th>
+                          <th>Cover</th>
                           <th>Actions</th>
                         </tr>
                             @foreach($data as $category)
                                 <tr>
-                                  <td>{{$category->id}}</td>
-                                  <td>{{$category->name}}</td>
-                                  <td>
+                                    <td>{{$category->id}}</td>
+                                    <td>{{$category->name}}</td>
+                                    <td>
+                                        @if(!is_null($category->cover))
+                                            <img src="{{Image::url(asset("uploads/$category->cover"),100,80,array('crop'))}}" alt="" class="img-thumbnail">
+                                        @else
+                                            <img src="http://placehold.it/100x80" alt="" class="img-thumbnail" />
+                                        @endif
+                                    </td>
+                                    <td>
                                         {!!Form::open(array('url' => URL::route('admin.categories.destroy', $category->id), 'method' => 'delete', 'class' => 'btn-group'))!!}
                                             <a href="{{URL::route('admin.categories.show', $category->id)}}" class="btn btn-default"><i class="fa fa-eye"></i> Show details</a>
                                             <a href="{{URL::route('admin.categories.edit', $category->id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                                             <button type="submit" name="submit" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete?')"> <i class="fa fa-times"></i> Delete</button>
                                         {!!Form::close()!!}
-                                  </td>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

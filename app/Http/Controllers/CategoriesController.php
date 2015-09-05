@@ -45,7 +45,13 @@ class CategoriesController extends Controller
         $category               = new Categories;
         $category->name         = $request->input('name');
         $category->slug         = str_slug($request->input('name'));
-        $category->cover        = null;
+        if ($request->hasFile('file')) {
+            //COVER PHOTO
+            $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move("uploads", "$fileName");
+
+            $category->cover    = $fileName;
+        }
         $category->description  = $request->input('description');
         $category->save();
 
@@ -90,11 +96,17 @@ class CategoriesController extends Controller
         $category               = Categories::find($id);
         $category->name         = $request->input('name');
         $category->slug         = str_slug($request->input('name'));
-        $category->cover        = null;
+        if ($request->hasFile('file')) {
+            //COVER PHOTO
+            $fileName = uniqid() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move("uploads", "$fileName");
+
+            $category->cover    = $fileName;
+        }
         $category->description  = $request->input('description');
         $category->save();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Successfully updated!');
+        return redirect()->route('admin.categories.edit', $id)->with('success', 'Successfully updated!');
     }
 
     /**
