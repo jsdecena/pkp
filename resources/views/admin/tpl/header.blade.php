@@ -100,19 +100,19 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              @if(is_null($user->cover))
+              @if(is_null($logged->cover))
                   <img src="{{asset('admin/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
               @else
-                  <img src="{{Image::url(asset("uploads/$user->cover"),25,25,array('crop'))}}" alt="User image" class="img-circle">
+                  <img src="{{Image::url(asset("uploads/$logged->cover"),25,25,array('crop'))}}" alt="User image" class="img-circle">
               @endif
-              <span class="hidden-xs">{{$user->name}}</span>
+              <span class="hidden-xs">{{$logged->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="{{asset('admin/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                 <p>
-                  {{$user->name}}
+                  {{$logged->name}}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>

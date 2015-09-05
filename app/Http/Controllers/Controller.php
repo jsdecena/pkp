@@ -14,6 +14,6 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        view()->share(array('user' => User::findOrFail(Auth::id())));
+        view()->share(array('logged' => User::findOrFail(Auth::id())));
     }    
 }

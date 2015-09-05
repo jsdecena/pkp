@@ -5,14 +5,14 @@
   <!-- Sidebar user panel -->
   <div class="user-panel">
     <div class="pull-left image">
-        @if(is_null($user->cover))
+        @if(is_null($logged->cover))
             <img src="{{asset('admin/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         @else
-            <img src="{{Image::url(asset("uploads/$user->cover"),80,80,array('crop'))}}" alt="User image" class="img-circle">
+            <img src="{{Image::url(asset("uploads/$logged->cover"),80,80,array('crop'))}}" alt="User image" class="img-circle">
         @endif
     </div>
     <div class="pull-left info">
-      <p>{{$user->name}}</p>
+      <p>{{$logged->name}}</p>
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
     </div>
   </div>
