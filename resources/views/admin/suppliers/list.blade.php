@@ -35,8 +35,6 @@
                                   <td>
                                     @if(!is_null($supplier->cover))
                                         <img src="{{Image::url(asset("uploads/$supplier->cover"),100,80,array('crop'))}}" alt="" class="img-thumbnail">
-                                    @else
-                                        <img src="http://placehold.it/100x80" class="img-thumbnail" alt="">
                                     @endif                                    
                                   </td>                                  
                                   <td>

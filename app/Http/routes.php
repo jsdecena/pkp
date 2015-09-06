@@ -25,6 +25,4 @@ Route::controllers([
     'auth' => 'Auth\AuthController'
 ]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FrontController@index');

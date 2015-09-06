@@ -34,8 +34,6 @@
                                     <td>
                                         @if(!is_null($category->cover))
                                             <img src="{{Image::url(asset("uploads/$category->cover"),100,80,array('crop'))}}" alt="" class="img-thumbnail">
-                                        @else
-                                            <img src="http://placehold.it/100x80" alt="" class="img-thumbnail" />
                                         @endif
                                     </td>
                                     <td>
